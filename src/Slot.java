@@ -1,3 +1,4 @@
+
 // I worked on this project alone using only the java API
 import java.util.Random;
 import javafx.application.Application;
@@ -22,12 +23,12 @@ public class Slot extends Application {
 
     /** The Constant REG_OPTIONS. */
     private static final String[] REG_OPTIONS  =
-    {"grape.png", "cherry.png", "bell.png", "line.png", "line.png",
-        "line.png", "line.png", "line.png"};
+            {"grape.png", "cherry.png", "bell.png", "line.png", "line.png",
+                    "line.png", "line.png", "line.png"};
 
     /** The Constant TEST_OPTIONS. */
     private static final String[] TEST_OPTIONS =
-    {"grape.png", "cherry.png", "bell.png"};
+            {"grape.png", "cherry.png", "bell.png"};
 
     /** The player. */
     private Player                player       = new Player();
@@ -93,11 +94,16 @@ public class Slot extends Application {
         // pane.add(getImageView("gif.gif"), 0, 5);
 
         spinButton.setOnAction(e -> {
-                String op1 = null, op2 = null, op3 = null;
-                int betAmt = Integer.valueOf(tf.getText());
+            String op1 = null, op2 = null, op3 = null;
+
+            try {
+                Double betAmt = Double.valueOf(tf.getText());
 
                 if (player.getMoney() == 0) {
                     msgText.setText("Oh No! You have no money left!");
+
+                } else if (!(betAmt > 0)) {
+                    msgText.setText("Your bet is not a positive number");
                 } else if (betAmt > player.getMoney()) {
                     msgText.setText("Your bet is too high");
                 } else {
@@ -116,8 +122,8 @@ public class Slot extends Application {
                         op3 = TEST_OPTIONS[rng.nextInt(3)];
                     }
                     // adding the new images to the pane
-                    pane.getChildren().removeIf(n ->
-                        GridPane.getRowIndex(n) == 1);
+                    pane.getChildren()
+                            .removeIf(n -> GridPane.getRowIndex(n) == 1);
                     pane.add(getImageView(op1), 0, 1);
                     pane.add(getImageView(op2), 1, 1);
                     pane.add(getImageView(op3), 2, 1);
@@ -125,7 +131,7 @@ public class Slot extends Application {
                     int payoff = getScore(new String[] {op1, op2, op3});
                     System.out.println(payoff);
                     if (payoff > 0) {
-                        int added = player.win(payoff);
+                        double added = player.win(payoff);
                         msgText.setText("Congrats! You won $" + added);
                         moneyText.setText("$" + player.getMoney());
                         System.out.println("won");
@@ -138,7 +144,10 @@ public class Slot extends Application {
 
                     moneyText.setText("$" + player.getMoney());
                 }
-            });
+            } catch (Exception exp) {
+                msgText.setText("You didn't enter an number");
+            }
+        });
 
         return pane;
     }

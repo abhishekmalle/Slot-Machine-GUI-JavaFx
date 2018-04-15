@@ -11,16 +11,16 @@ public class Player {
     private int money;
 
     /** The bet. */
-    private int bet;
+    private Double bet;
 
     /**
      * Instantiates a new player
      *
-     * @param bet
+     * @param i
      */
-    public Player(int bet) {
+    public Player(double i) {
         this.money = 100;
-        this.bet = bet;
+        this.bet = i;
     }
 
     /**
@@ -55,8 +55,8 @@ public class Player {
      * @param payoff
      * @return the amount of money added
      */
-    public int win(int payoff) {
-        int added = this.bet * payoff;
+    public double win(int payoff) {
+        double added = this.bet * payoff;
         this.money += added;
         return added;
     }
@@ -73,17 +73,17 @@ public class Player {
      *
      * @return the bet
      */
-    public int getBet() {
+    public Double getBet() {
         return this.bet;
     }
 
     /**
      * Sets the bet.
      *
-     * @param betAmount
+     * @param betAmt
      *            the new bet
      */
-    public void setBet(int betAmount) {
-        this.bet = betAmount;
+    public void setBet(Double betAmt) {
+        this.bet = betAmt;
     }
 }
