@@ -97,11 +97,11 @@ public class Slot extends Application {
             String op1 = null, op2 = null, op3 = null;
 
             try {
+                // this throws an exception if the String isn't a number
                 Double betAmt = Double.valueOf(tf.getText());
 
                 if (player.getMoney() == 0) {
                     msgText.setText("Oh No! You have no money left!");
-
                 } else if (!(betAmt > 0)) {
                     msgText.setText("Your bet is not a positive number");
                 } else if (betAmt > player.getMoney()) {
@@ -167,7 +167,8 @@ public class Slot extends Application {
     }
 
     /**
-     * Gets the score.
+     * Gets the score with the specified rules. Changing these values should NOT
+     * break the game so feel free to change them.
      *
      * @param array
      *            of strings
@@ -208,7 +209,7 @@ public class Slot extends Application {
     public void start(Stage primaryStage) throws Exception {
         // Create a scene and place it in the stage
         Scene scene = new Scene(getPane(), 800, 600);
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
         primaryStage.setTitle("Slot Machine"); // Set the stage title
         primaryStage.setScene(scene); // Place the scene in the stage
         primaryStage.show(); // Display the stage
